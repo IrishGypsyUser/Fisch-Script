@@ -4700,6 +4700,6 @@ Notifications:Notification("[🐟] Loaded Joyce's Fisch Script!", 10, Library.Ac
 
 if queue_on_teleport then
     queue_on_teleport[[
-        loadstring(game:HttpGet'https://raw.githubusercontent.com/IrishGypsyUser/Fisch-Script/new/main/loader.luau')''
+        loadstring(game:HttpGet'https://raw.githubusercontent.com/IrishGypsyUser/Fisch-Script/refs/heads/main/loader.luau')''
     ]]
 end
