@@ -4569,7 +4569,7 @@ do
     end
 
 	do
-        local Section = Pages["Aiming"]:Section({Name = "Appraiser", Title = "Appraiser", Side = "Right", Zindex = -1})
+        local Section = Pages["Aiming"]:Section({Name = "Appraiser", Title = "Appraiser", Side = "Right", Zindex = -500})
 
 		Section:Toggle({Name = "Shiny", Callback = function(state)
             Config.Appraiser.Shiny = state
@@ -4655,7 +4655,7 @@ do
     end
 
 	do
-        local Section = Pages["Aiming"]:Section({Name = "Servers", Side = "Right"})
+        local Section = Pages["Aiming"]:Section({Name = "Servers", Side = "Right", Zindex = -1000})
 
 		Section:Button({Name = "Server Hop", Callback = function()
 			-- skidded
@@ -4699,7 +4699,7 @@ end
 Notifications:Notification("[🐟] Loaded Joyce's Fisch Script!", 10, Library.Accent, false)
 
 if queue_on_teleport then
-    queue_on_teleport[[
+    queue_on_teleport([[
         loadstring(game:HttpGet'https://raw.githubusercontent.com/IrishGypsyUser/Fisch-Script/refs/heads/main/loader.luau')''
-    ]]
+	]])
 end
