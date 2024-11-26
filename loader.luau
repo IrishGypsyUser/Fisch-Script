@@ -4351,7 +4351,7 @@ task.spawn(function()
 end)
 
 local Window = Library:Window({Name = "Fisch [🐟]"})
-local Solara, Xeno = getexecutorname() == "Solara", getexecutorname() == "Xeno"
+local Solara, Xeno = getexecutorname() == "Solara", (getexecutorname() == "Xeno" or getexecutorname() == "JJSploit x Xeno")
 
 if not isfolder("FischScript") then
     makefolder("FischScript")
