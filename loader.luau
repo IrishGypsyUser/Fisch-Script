@@ -4794,8 +4794,13 @@ do
 						break
 					end
 				
-
-					Services.Workspace:FindFirstChild(string.lower("World")):FindFirstChild(string.lower("NPCS")):FindFirstChild("Appraiser"):FindFirstChild(string.lower("Appraiser")):FindFirstChild(string.lower("Appraise")):InvokeServer()
+					pcall(function()
+						task.spawn(function()
+							pcall(function()
+								Services.Workspace:FindFirstChild(string.lower("World")):FindFirstChild(string.lower("NPCS")):FindFirstChild("Appraiser"):FindFirstChild(string.lower("Appraiser")):FindFirstChild(string.lower("Appraise")):InvokeServer()
+							end)
+						end)
+					end)
 				end
 			end)
 		end})
