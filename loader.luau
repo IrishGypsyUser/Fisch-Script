@@ -4163,6 +4163,10 @@ task.spawn(function()
                 SerpentLocation = CFrame.new(1097.00818, -740.921997, 1446.5874, -0.963950574, 1.19874439e-08, 0.266081423, 1.29693305e-08, 1, 1.93305505e-09, -0.266081423, 5.31426725e-09, -0.963950574)
                 Serpent_Active = true;
             end
+			if Child.CFrame == CFrame.new(915.26001, -750.5, 1414.83398, -1, 0, 0, 0, 1, 0, 0, 0, -1) then
+                SerpentLocation = CFrame.new(937.862549, -734.99707, 1411.31335, 0.109383531, 9.89878188e-08, 0.9939996, -6.568402e-08, 1, -9.23572472e-08, -0.9939996, -5.51875274e-08, 0.109383531)
+                Serpent_Active = true;
+            end
 
             local OldCFrame = Services.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     
@@ -4221,6 +4225,10 @@ task.spawn(function()
                     SerpentLocation = CFrame.new(1097.00818, -740.921997, 1446.5874, -0.963950574, 1.19874439e-08, 0.266081423, 1.29693305e-08, 1, 1.93305505e-09, -0.266081423, 5.31426725e-09, -0.963950574)
                     Serpent_Active = true;
                 end
+				if Child.CFrame == CFrame.new(915.26001, -750.5, 1414.83398, -1, 0, 0, 0, 1, 0, 0, 0, -1) then
+					SerpentLocation = CFrame.new(937.862549, -734.99707, 1411.31335, 0.109383531, 9.89878188e-08, 0.9939996, -6.568402e-08, 1, -9.23572472e-08, -0.9939996, -5.51875274e-08, 0.109383531)
+					Serpent_Active = true;
+				end
 
                 local OldCFrame = Services.Players.LocalPlayer.Character.HumanoidRootPart.CFrame
                     
@@ -4841,9 +4849,3 @@ do
 end
 
 Notifications:Notification("[🐟] Loaded Joyce's Fisch Script!", 10, Library.Accent, false)
-
-if queue_on_teleport then
-    queue_on_teleport([[
-        loadstring(game:HttpGet'https://raw.githubusercontent.com/IrishGypsyUser/Fisch-Script/refs/heads/main/loader.luau')''
-	]])
-end
