@@ -4772,6 +4772,7 @@ do
 							Checks = false
 						end
 					end
+
 					if Checks == false then return false end
 					if Config.Appraiser.Sparkling then Checks = Link:FindFirstChild("Sparkling") and true or not Link:FindFirstChild("Sparkling") and false end
 					if Checks == false then return false end
@@ -4783,12 +4784,20 @@ do
 					return Checks
 				end
 
-				while task.wait(1.25) do
+				while task.wait(.025) do
 					if Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish) then
 						Services.Players.LocalPlayer.Character.Humanoid:EquipTool(Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish))
 					end
+					
+					local Temp_Fish;
 
-					local Link = Services.Players.LocalPlayer.Character:FindFirstChild(Fish):FindFirstChild(string.lower("Link")).Value
+					pcall(function()
+						Temp_Fish = Services.Players.LocalPlayer.Character:FindFirstChild(Fish)
+					end)
+
+					if not Temp_Fish then continue end
+
+					local Link = Temp_Fish:FindFirstChild(string.lower("Link")).Value
 
 					if CheckFish(Link) or StopAppraising then
 						break
