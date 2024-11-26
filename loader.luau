@@ -4570,19 +4570,21 @@ do
 			end})
 
 			Section:Button({Name = "Refresh List", Callback = function()
-				task.wait(1.5)
-				local Waypoints = {}
-		
-				for i,v in listfiles("FischScript/Waypoints") do
-					local Slash = tostring(string.gsub(v, [[./FischScript/Waypoints/]], ""))
-					table.insert(Waypoints, Slash)
-				end
-		
-				table.sort(Waypoints, function(A, B)
-					return A<B
+				task.spawn(function()
+					task.wait(1.5)
+					local Waypoints = {}
+			
+					for i,v in listfiles("FischScript/Waypoints") do
+						local Slash = tostring(string.gsub(v, [[./FischScript/Waypoints/]], ""))
+						table.insert(Waypoints, Slash)
+					end
+			
+					table.sort(Waypoints, function(A, B)
+						return A<B
+					end)
+			
+					Waypoint_List:Refresh(Waypoints)
 				end)
-		
-				Waypoint_List:Refresh(Waypoints)
 			end})
 
 			local Waypoints = {}
@@ -4597,7 +4599,6 @@ do
 			end)
 
 			Waypoint_List:Refresh(Waypoints)
-			warn("Xeno")
 		end
     end
 
