@@ -4784,7 +4784,7 @@ do
 					return Checks
 				end
 
-				while task.wait(.025) do
+				while task.wait(.1) do
 					if Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish) then
 						Services.Players.LocalPlayer.Character.Humanoid:EquipTool(Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish))
 					end
