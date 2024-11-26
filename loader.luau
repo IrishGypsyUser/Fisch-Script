@@ -4350,6 +4350,9 @@ task.spawn(function()
 				task.wait(.5)
 
 			until not Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value) or not Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value).values.bite.Value or Serpent_Fix == true
+			if Serpent_Fix then
+				Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value):FindFirstChild(string.lower("Events")):FindFirstChild(string.lower("Cast")):FireServer(1000000000000000000000000)
+			end
 		else
 			Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value):FindFirstChild(string.lower("Events")):FindFirstChild(string.lower("Cast")):FireServer(1000000000000000000000000)
 			task.wait(.5)
@@ -4780,7 +4783,7 @@ do
 					return Checks
 				end
 
-				while task.wait(.75) do
+				while task.wait(1.25) do
 					if Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish) then
 						Services.Players.LocalPlayer.Character.Humanoid:EquipTool(Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish))
 					end
