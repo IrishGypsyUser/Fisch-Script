@@ -4868,6 +4868,7 @@ do
 					end)
 
 					if not Temp_Fish then continue end
+					if not Temp_Fish:FindFirstChild(string.lower("Link")) then continue end
 
 					local Link = Temp_Fish:FindFirstChild(string.lower("Link")).Value
 
