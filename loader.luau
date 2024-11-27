@@ -4362,7 +4362,7 @@ task.spawn(function()
 end)
 
 local Window = Library:Window({Name = "Fisch [🐟]"})
-local Solara, Xeno = getexecutorname() == "Solara", (getexecutorname() == "Xeno" or getexecutorname() == "JJSploit x Xeno")
+local Solara, Xeno, Seliware = getexecutorname() == "Solara", (getexecutorname() == "Xeno" or getexecutorname() == "JJSploit x Xeno"), string.match(getexecutorname(), "Seliware") == "Seliware"
 
 if not isfolder("FischScript") then
     makefolder("FischScript")
@@ -4400,7 +4400,8 @@ do
     end
 
     do
-		if (not Solara) and (not Xeno) then
+		if (not Solara) and (not Xeno) and (not Seliware) then
+			warn("wave")
 			local Section = Pages["Aiming"]:Section({Name = "Waypoints"})
 
 			local WayPointName;
@@ -4538,6 +4539,75 @@ do
 			end)
 
 			Waypoint_List:Refresh(Waypoints)
+		elseif Seliware then
+			local Section = Pages["Aiming"]:Section({Name = "Waypoints"})
+	
+			local WayPointName;
+	
+			local function toVector3(String, Separator)
+				local Separator = Separator or ','
+			
+				local axes = {}
+			
+				for axis in String:gmatch('[^'..Separator..']+') do
+					axes[#axes + 1] = axis
+				end
+			
+				return Vector3.new(axes[1], axes[2], axes[3])
+			end
+	
+			local Selected_Waypoint;
+			local Waypoint_List = Section:List({Name = "Waypoints", Flag = "Waypoints", Options = {}, Default = 1, Callback = function(Value)
+				if Value == nil then return end
+				Selected_Waypoint = Value
+			end})
+	
+			Section:Textbox({Flag = "Waypoint Name", Name = "Waypoint Name", Callback = function(Value)
+				WayPointName = tostring(Value)
+			end})
+	
+			Section:Button({Name = "Teleport To Waypoint", Callback = function()
+				if Selected_Waypoint == nil then return end
+				Services.Players.LocalPlayer.Character.HumanoidRootPart.CFrame = CFrame.new(toVector3(readfile([[FischScript\Waypoints\]]..Selected_Waypoint), ","))
+			end})
+	
+			Section:Button({Name = "Save Waypoint", Callback = function()
+				if WayPointName == nil then return end
+				writefile([[FischScript\Waypoints\]]..WayPointName, tostring(Services.Players.LocalPlayer.Character.HumanoidRootPart.CFrame))
+			end})
+	
+			Section:Button({Name = "Delete Waypoint", Callback = function()
+				if Selected_Waypoint == nil then return end
+				delfile([[FischScript\Waypoints\]]..Selected_Waypoint)
+			end})
+	
+			Section:Button({Name = "Refresh List", Callback = function()
+				local Waypoints = {}
+		
+				for i,v in listfiles([[FischScript\Waypoints]]) do
+					local Slash = tostring(string.gsub(v, [[FischScript\Waypoints\]], ""))
+					table.insert(Waypoints, Slash)
+				end
+		
+				table.sort(Waypoints, function(A, B)
+					return A<B
+				end)
+		
+				Waypoint_List:Refresh(Waypoints)
+			end})
+	
+			local Waypoints = {}
+		
+			for i,v in listfiles([[FischScript\Waypoints]]) do
+				local Slash = tostring(string.gsub(v, [[FischScript\Waypoints\]], ""))
+				table.insert(Waypoints, Slash)
+			end
+	
+			table.sort(Waypoints, function(A, B)
+				return A<B
+			end)
+	
+			Waypoint_List:Refresh(Waypoints)
 		elseif Xeno then
 			local Section = Pages["Aiming"]:Section({Name = "Waypoints"})
 
@@ -4622,9 +4692,9 @@ do
             if antiafk_enabled == false then
 				if state then
 					task.spawn(function()
-						while task.wait(1) do
+						while true do
 							local GC = getconnections or get_signal_cons
-							if GC then
+							if GC and (not Solara) and (not Xeno) then
 								for i,v in pairs(GC(Services.Players.LocalPlayer.Idled)) do
 									if v["Disable"] then
 										v["Disable"](v)
@@ -4638,6 +4708,8 @@ do
 									Services.VirtualUser:ClickButton2(Vector2.new())
 								end)
 							end
+							
+							task.wait(300)
 						end
 					end)
 				end
