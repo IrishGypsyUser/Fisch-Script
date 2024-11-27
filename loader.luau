@@ -4818,10 +4818,36 @@ do
             Config.Appraiser.Weight = tonumber(state)
         end})
 
-		Section:List({Name = "Mutation", Flag = "Mutation_Flag", Options = {"Random";"Mythical";"Abyssal";"Lunar";"Midas";"Glossy";"Silver";"Mosaic";"Hexed";"Electric";"Darkened";"Translucent";"Frozen";"Negative";"Albino"}, Default = 1, Callback = function(Value)
+		Section:List({Name = "Mutation", Flag = "Mutation_Flag", Options = {"Random";"Mythical";"Abyssal";"Lunar";"Midas";"Glossy";"Silver";"Mosaic";"Hexed";"Electric";"Darkened";"Translucent";"Frozen";"Negative";"Albino"}, Default = "Random", Callback = function(Value)
             if Value == nil then return end
 			Config.Appraiser.WantedMutation = Value
         end})
+
+		local function CheckFish(Link)
+			local Checks = true
+
+			if Config.Appraiser.Mutation then 
+				if Link:FindFirstChild("Mutation") then
+					if Config.Appraiser.WantedMutation == "Random" then
+						Checks = true
+					else
+						Checks = Link:FindFirstChild("Mutation").Value == Config.Appraiser.WantedMutation
+					end
+				else
+					Checks = false
+				end
+			end
+
+			if Checks == false then return false end
+			if Config.Appraiser.Sparkling then Checks = Link:FindFirstChild("Sparkling") and true or not Link:FindFirstChild("Sparkling") and false end
+			if Checks == false then return false end
+			if Config.Appraiser.Shiny then Checks = Link:FindFirstChild("Shiny") and true or not Link:FindFirstChild("Shiny") and false end
+			if Checks == false then return false end
+			if Config.Appraiser.CustomWeight then Checks = Link.Weight.Value >= Config.Appraiser.Weight end
+			
+
+			return Checks
+		end
 
 		local StopAppraising = false;
 		Section:Button({Name = "Start Appraising (Hold Fish)", Callback = function()
@@ -4829,32 +4855,6 @@ do
 				local Fish = tostring(Services.Players.LocalPlayer.Character:FindFirstChildOfClass("Tool"))
 
 				if Fish == "nil" then return end
-
-				local function CheckFish(Link)
-					local Checks = true
-
-					if Config.Appraiser.Mutation then 
-						if Link:FindFirstChild("Mutation") then
-							if Config.Appraiser.WantedMutation == "Random" then
-								Checks = true
-							else
-								Checks = Link:FindFirstChild("Mutation").Value == Config.Appraiser.WantedMutation
-							end
-						else
-							Checks = false
-						end
-					end
-
-					if Checks == false then return false end
-					if Config.Appraiser.Sparkling then Checks = Link:FindFirstChild("Sparkling") and true or not Link:FindFirstChild("Sparkling") and false end
-					if Checks == false then return false end
-					if Config.Appraiser.Shiny then Checks = Link:FindFirstChild("Shiny") and true or not Link:FindFirstChild("Shiny") and false end
-					if Checks == false then return false end
-					if Config.Appraiser.CustomWeight then Checks = Link.Weight.Value >= Config.Appraiser.Weight end
-					
-
-					return Checks
-				end
 
 				while task.wait(.1) do
 					if Services.Players.LocalPlayer.Backpack:FindFirstChild(Fish) then
