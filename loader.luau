@@ -1,3 +1,4 @@
+if getgenv().ScriptLoaded then return end ; getgenv().ScriptLoaded = true;
 local Services = setmetatable({}, {
     __index = function(table, value, key)
         return (cloneref and cloneref(game:GetService(value))) or game:GetService(value)
@@ -36,7 +37,7 @@ local Config = {
 		["WantedMutation"] = "Random";
 	};
 
-    ["Locations"] = {["The Depths"] = CFrame.new(568, -704, 1231); ["Altar"] = CFrame.new(1308, -805, -105); ["Executive HeadQuarters"] = CFrame.new(-33, -247, 200); ["Birch"] = CFrame.new(1742, 142, -2502); ["Deep"] = CFrame.new(-1511, -235, -2853); ["Volcano"] = CFrame.new(-1889, 168, 329); ["Mushgrove"] = CFrame.new(2502, 131, -721); ["Spike"] = CFrame.new(-1255, 138, 1554); ["Forsaken Shores"] = CFrame.new(-2498, 137, 1625); ["Snowcap"] = CFrame.new(2649, 142, 2521); ["Terrapin"] = CFrame.new(-145, 145, 1907); ["Arch"] = CFrame.new(999, 131, -1237); ["Merlin"] = CFrame.new(-932, 224, -987); ["Sunstone"] = CFrame.new(-933, 132, -1119); ["Wilson"] = CFrame.new(2939, 281, 2567); ["Roslit"] = CFrame.new(-1477, 134, 672); ["Brine"] = CFrame.new(-1797, -143, -3442); ["Statue"] = CFrame.new(73, 142, -1028); ["Rod Of Depths"] = CFrame.new(1704, -903, 1439); ["Deep Shop"] = CFrame.new(-979, -245, -2700); ["Vertigo"] = CFrame.new(-112, -515, 1040); ["Moosewood"] = CFrame.new(383, 135, 244);};
+    ["Locations"] = {["Anicent Isles"] = CFrame.new(6058, 195, 281); ["Rod Crafting"] = CFrame.new(-3160, -747, 1701); ["The Depths"] = CFrame.new(568, -704, 1231); ["Altar"] = CFrame.new(1308, -805, -105); ["Executive HeadQuarters"] = CFrame.new(-33, -247, 200); ["Birch"] = CFrame.new(1742, 142, -2502); ["Deep"] = CFrame.new(-1511, -235, -2853); ["Volcano"] = CFrame.new(-1889, 168, 329); ["Mushgrove"] = CFrame.new(2502, 131, -721); ["Spike"] = CFrame.new(-1255, 138, 1554); ["Forsaken Shores"] = CFrame.new(-2498, 137, 1625); ["Snowcap"] = CFrame.new(2649, 142, 2521); ["Terrapin"] = CFrame.new(-145, 145, 1907); ["Arch"] = CFrame.new(999, 131, -1237); ["Merlin"] = CFrame.new(-932, 224, -987); ["Sunstone"] = CFrame.new(-933, 132, -1119); ["Wilson"] = CFrame.new(2939, 281, 2567); ["Roslit"] = CFrame.new(-1477, 134, 672); ["Brine"] = CFrame.new(-1797, -143, -3442); ["Statue"] = CFrame.new(73, 142, -1028); ["Rod Of Depths"] = CFrame.new(1704, -903, 1439); ["Deep Shop"] = CFrame.new(-979, -245, -2700); ["Vertigo"] = CFrame.new(-112, -515, 1040); ["Moosewood"] = CFrame.new(383, 135, 244);};
 };
 
 task.spawn(function()
@@ -154,6 +155,10 @@ task.spawn(function()
                     SerpentLocation = CFrame.new(1097.00818, -740.921997, 1446.5874, -0.963950574, 1.19874439e-08, 0.266081423, 1.29693305e-08, 1, 1.93305505e-09, -0.266081423, 5.31426725e-09, -0.963950574)
                     Serpent_Active = true;
                 end
+				if Child.CFrame == CFrame.new(915.26001, -750.5, 1414.83398, -1, 0, 0, 0, 1, 0, 0, 0, -1) then
+					SerpentLocation = CFrame.new(937.862549, -734.99707, 1411.31335, 0.109383531, 9.89878188e-08, 0.9939996, -6.568402e-08, 1, -9.23572472e-08, -0.9939996, -5.51875274e-08, 0.109383531)
+					Serpent_Active = true;
+				end
 				if Child.CFrame == CFrame.new(915.26001, -750.5, 1414.83398, -1, 0, 0, 0, 1, 0, 0, 0, -1) then
 					SerpentLocation = CFrame.new(937.862549, -734.99707, 1411.31335, 0.109383531, 9.89878188e-08, 0.9939996, -6.568402e-08, 1, -9.23572472e-08, -0.9939996, -5.51875274e-08, 0.109383531)
 					Serpent_Active = true;
@@ -276,7 +281,7 @@ task.spawn(function()
 
 			repeat
 				Services.ReplicatedStorage:FindFirstChild(string.lower("ReelFinished"), true):FireServer(1000000000000000000000000, true)
-				task.wait(.5)
+				Services.RunService.Heartbeat:Wait()
 
 			until not Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value) or not Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value).values.bite.Value or Serpent_Fix == true
 			if Serpent_Fix then
@@ -284,7 +289,7 @@ task.spawn(function()
 			end
 		else
 			Services.Players.LocalPlayer.Character:FindFirstChild(Rod_Value):FindFirstChild(string.lower("Events")):FindFirstChild(string.lower("Cast")):FireServer(1000000000000000000000000)
-			task.wait(.5)
+			Services.RunService.Heartbeat:Wait()
             CanBuyLuckyPotions = true
 		end
 	end
@@ -292,7 +297,7 @@ end)
 
 local Library, Notifications = loadstring((request or http_request or http and http.request)({Url = "https://raw.githubusercontent.com/IrishGypsyUser/UI-Library/refs/heads/main/loader.luau", Method = "GET"}).Body)()
 local Window = Library:Window({Name = "Fisch [🐟]"})
-local Solara, Xeno, Seliware = getexecutorname() == "Solara", (getexecutorname() == "Xeno" or getexecutorname() == "JJSploit x Xeno"), string.match(getexecutorname(), "Seliware") == "Seliware"
+local Solara, Xeno, Seliware, Awp = getexecutorname() == "Solara", (getexecutorname() == "Xeno" or getexecutorname() == "JJSploit x Xeno"), string.match(getexecutorname(), "Seliware") == "Seliware", getexecutorname() == "AWP"
 
 if not isfolder("FischScript") then
     makefolder("FischScript")
@@ -330,8 +335,7 @@ do
     end
 
     do
-		if (not Solara) and (not Xeno) and (not Seliware) then
-			warn("wave")
+		if (not Solara) and (not Xeno) and (not Seliware) and (not Awp) then
 			local Section = Pages["Aiming"]:Section({Name = "Waypoints"})
 
 			local WayPointName;
@@ -469,7 +473,7 @@ do
 			end)
 
 			Waypoint_List:Refresh(Waypoints)
-		elseif Seliware then
+		elseif Seliware or Awp then
 			local Section = Pages["Aiming"]:Section({Name = "Waypoints"})
 	
 			local WayPointName;
